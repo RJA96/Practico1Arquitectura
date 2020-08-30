@@ -1,22 +1,13 @@
 package entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EmbeddedId;
 
 @Entity
 public class FacturaProducto {
 
   @EmbeddedId
   private FacturaProductoPK id;
-
-//  @ManyToOne
-//  @MapsId("idFactura")
-//  @JoinColumn(name = "id_factura")
-//  private Factura factura;
-//
-//  @ManyToOne
-//  @MapsId("idFactura")
-//  @JoinColumn(name = "id_producto")
-//  private Producto producto;
 
   private Integer cantidad;
 
