@@ -1,4 +1,4 @@
-package entitie;
+package entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +22,6 @@ public class Cliente {
   @Getter
   @Setter
   private String email;
-
-  @OneToMany
-  private List<Factura> facturas;
 
   public Cliente() {
   }

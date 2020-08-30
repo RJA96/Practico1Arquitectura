@@ -1,4 +1,4 @@
-package entitie;
+package entity;
 
 import lombok.Getter;
 
@@ -6,20 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
-@IdClass(FacturaProductoPK.class)
 public class FacturaProducto {
   @Getter
   @Id
-  @Column (name = "idFactura", insertable = false, nullable = false)
   private Integer idFactura;
 
-  @Id
-  @Column (name = "idProducto",insertable = false, nullable = false)
   private Integer idProducto;
 
   private Integer cantidad;

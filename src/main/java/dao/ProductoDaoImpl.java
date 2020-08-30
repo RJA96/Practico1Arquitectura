@@ -1,7 +1,6 @@
 package dao;
 
-import entitie.FacturaProducto;
-import entitie.Producto;
+import entity.Producto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

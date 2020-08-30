@@ -1,6 +1,6 @@
 package dao;
 
-import entitie.Cliente;
+import entity.Cliente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

@@ -4,10 +4,10 @@ import dao.ClienteDaoImpl;
 import dao.FacturaDaoImpl;
 import dao.FacturaProductoDaoImpl;
 import dao.ProductoDaoImpl;
-import entitie.Cliente;
-import entitie.Factura;
-import entitie.FacturaProducto;
-import entitie.Producto;
+import entity.Cliente;
+import entity.Factura;
+import entity.FacturaProducto;
+import entity.Producto;
 
 public class Application {
 

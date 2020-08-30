@@ -8,10 +8,10 @@
         Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
     </description>
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>entitie.Cliente</class>
-    <class>entitie.Factura</class>
-    <class>entitie.FacturaProducto</class>
-    <class>entitie.Producto</class>
+    <class>entity.Cliente</class>
+    <class>entity.Factura</class>
+    <class>entity.FacturaProducto</class>
+    <class>entity.Producto</class>
 
     <properties>
         <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
