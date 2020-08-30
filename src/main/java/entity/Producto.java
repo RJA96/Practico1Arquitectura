@@ -9,7 +9,6 @@ import javax.persistence.Id;
 public class Producto {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer idProducto;
 
   private String nombre;
@@ -19,9 +18,9 @@ public class Producto {
   public Producto() {
   }
 
-  public Producto(String nombre, Float valor) {
+  public Producto(Integer idProducto, String nombre, Float valor) {
+    this.idProducto = idProducto;
     this.nombre = nombre;
     this.valor = valor;
   }
-
 }

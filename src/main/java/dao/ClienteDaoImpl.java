@@ -8,14 +8,9 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ClienteDaoImpl implements Dao<Cliente> {
+public class ClienteDaoImpl extends Dao<Cliente> {
 
-  private final EntityManager entityManager;
-
-
-  public ClienteDaoImpl(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
+  public ClienteDaoImpl() {}
 
   @Override
   public List<Cliente> getAll() {
@@ -26,6 +21,11 @@ public class ClienteDaoImpl implements Dao<Cliente> {
   @Override
   public void save(Cliente cliente) {
     executeInsideTransaction(entityManager -> entityManager.persist(cliente));
+  }
+
+  @Override
+  public void saveAll(List<Cliente> clientes) {
+
   }
 
   private void executeInsideTransaction(Consumer<EntityManager> action) {
