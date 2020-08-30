@@ -1,29 +1,31 @@
 package entity;
 
-import lombok.Getter;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
 public class FacturaProducto {
-  @Getter
-  @Id
-  private Integer idFactura;
 
-  private Integer idProducto;
+  @EmbeddedId
+  private FacturaProductoPK id;
+
+//  @ManyToOne
+//  @MapsId("idFactura")
+//  @JoinColumn(name = "id_factura")
+//  private Factura factura;
+//
+//  @ManyToOne
+//  @MapsId("idFactura")
+//  @JoinColumn(name = "id_producto")
+//  private Producto producto;
 
   private Integer cantidad;
 
-  public FacturaProducto() {
+
+  public FacturaProducto(Integer facturaId, Integer productoId, Integer cantidad) {
+    this.id = new FacturaProductoPK(facturaId, productoId);
+    this.cantidad = cantidad;
   }
 
-  public FacturaProducto (Integer idFactura, Integer idProducto, Integer cantidad) {
-    this.idFactura = idFactura;
-    this.idProducto = idProducto;
-    this.cantidad = cantidad;
+  public FacturaProducto() {
   }
 }
