@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Application {
 
@@ -44,7 +45,32 @@ public class Application {
             productos.add(new Producto(id, nombre, valor));
         }
         productoDao.saveAll(productos);
+    }
 
+
+    /**
+     * Busca el producto que mas recaudo
+     * @return el producto que mas recaudo o null
+     */
+    public Producto getMaxRecaudacion() {
+        List<FacturaProducto> facturaProductos = facturaProodcutoDao.getAll();
+        List<Producto> productos = productoDao.getAll();
+
+        Producto productoQueMasRecaudo = null;
+        float maximaRecaudacion = 0f;
+        for(Producto producto: productos) {
+            Integer cantidadProductos = facturaProductos.stream()
+                    .filter(fp -> fp.getProductoId() == producto.getIdProducto())
+                    .map(facturaProducto -> facturaProducto.getCantidad())
+                    .reduce(Integer::sum)
+                    .orElse(0);
+            float result = producto.getValor() * cantidadProductos;
+            if(result > maximaRecaudacion) {
+                maximaRecaudacion = result;
+                productoQueMasRecaudo = producto;
+            }
+        }
+        return productoQueMasRecaudo;
     }
 
 }

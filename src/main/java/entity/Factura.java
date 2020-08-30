@@ -18,6 +18,8 @@ public class Factura {
   public Factura() {
   }
 
+
+
   public Factura(Cliente cliente) {
     this.cliente = cliente;
   }
