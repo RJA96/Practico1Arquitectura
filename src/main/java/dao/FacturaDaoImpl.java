@@ -8,13 +8,9 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class FacturaDaoImpl implements Dao<Factura>{
+public class FacturaDaoImpl extends Dao<Factura>{
 
-  private final EntityManager entityManager;
-
-
-  public FacturaDaoImpl(EntityManager entityManager) {
-    this.entityManager = entityManager;
+  public FacturaDaoImpl() {
   }
 
   @Override
@@ -26,6 +22,11 @@ public class FacturaDaoImpl implements Dao<Factura>{
   @Override
   public void save(Factura factura) {
     executeInsideTransaction(entityManager -> entityManager.persist(factura));
+  }
+
+  @Override
+  public void saveAll(List<Factura> facturas) {
+
   }
 
   private void executeInsideTransaction(Consumer<EntityManager> action) {
