@@ -1,3 +1,4 @@
+import entity.Producto;
 import utils.CsvUtils;
 
 import java.io.FileReader;
@@ -11,5 +12,9 @@ public class Application {
         csvUtils.uploadProductos(new FileReader("src/main/resources/productos.csv"));
         csvUtils.uploadFactura(new FileReader("src/main/resources/facturas.csv"));
         csvUtils.uploadFacturaProducto(new FileReader("src/main/resources/facturasProductos.csv"));
+        Producto maxRecaudacion = csvUtils.getMaxRecaudacion();
+        System.out.println("Ejercicio 3: ");
+        System.out.println("El producto que mas recaudo " + maxRecaudacion);
+        System.out.println("Ejercicio 4: ");
     }
 }

@@ -16,7 +16,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class CsvUtils {
 
@@ -95,11 +98,7 @@ public class CsvUtils {
     Producto productoQueMasRecaudo = null;
     float maximaRecaudacion = 0f;
     for(Producto producto: productos) {
-      Integer cantidadProductos = facturaProductos.stream()
-              .filter(fp -> fp.getProductoId() == producto.getIdProducto())
-              .map(facturaProducto -> facturaProducto.getCantidad())
-              .reduce(Integer::sum)
-              .orElse(0);
+      Integer cantidadProductos = getCantidadProductosCompradosByProducto(facturaProductos, producto); // Dame el total y sino devolve 0
       float result = producto.getValor() * cantidadProductos;
       if(result > maximaRecaudacion) {
         maximaRecaudacion = result;
@@ -107,5 +106,21 @@ public class CsvUtils {
       }
     }
     return productoQueMasRecaudo;
+  }
+
+  public List<Cliente> getClientesByFacturoMas() {
+    List<FacturaProducto> facturaProductos = facturaProodcutoDao.getAll();
+    List<Producto> productos = productoDao.getAll();
+    List<Cliente> clientes  = clienteDao.getAll();
+    List<Factura> facturas = facturaDao.getAll();
+
+  }
+
+  private Integer getCantidadProductosCompradosByProducto(List<FacturaProducto> facturaProductos, Producto producto) {
+    return facturaProductos.stream()
+            .filter(fp -> fp.getProductoId() == producto.getIdProducto()) // Filtra por id de producto = id de facturaProducto
+            .map(facturaProducto -> facturaProducto.getCantidad()) // List<Integer> representando la cantidad
+            .reduce(Integer::sum) // x -> total + valorDentroDelArray
+            .orElse(0);
   }
 }

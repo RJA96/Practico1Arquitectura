@@ -6,9 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Factura {
 
-  @Getter
   @Id
   private Integer idFactura;
 
