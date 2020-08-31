@@ -25,13 +25,14 @@ public class Cliente {
 
   public Cliente() {
   }
+
   public Cliente(Integer id) {
     this.idCliente = id;
   }
+
   public Cliente(Integer idCliente, String nombre, String email) {
     this.idCliente = idCliente;
     this.nombre = nombre;
     this.email = email;
   }
-
 }

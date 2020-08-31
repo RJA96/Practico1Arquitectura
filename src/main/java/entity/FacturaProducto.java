@@ -1,5 +1,7 @@
 package entity;
 
+import lombok.Getter;
+
 import javax.persistence.Entity;
 import javax.persistence.EmbeddedId;
 
@@ -9,6 +11,7 @@ public class FacturaProducto {
   @EmbeddedId
   private FacturaProductoPK id;
 
+  @Getter
   private Integer cantidad;
 
 
@@ -18,5 +21,13 @@ public class FacturaProducto {
   }
 
   public FacturaProducto() {
+  }
+
+  public Integer getFacturaId() {
+    return id.getIdFactura();
+  }
+
+  public Integer getProductoId() {
+    return id.getIdProducto();
   }
 }

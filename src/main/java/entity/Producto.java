@@ -1,11 +1,12 @@
 package entity;
 
+import lombok.Getter;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Getter
 public class Producto {
 
   @Id
@@ -15,8 +16,7 @@ public class Producto {
 
   private Float valor;
 
-  public Producto() {
-  }
+  public Producto() {}
 
   public Producto(Integer idProducto, String nombre, Float valor) {
     this.idProducto = idProducto;

@@ -17,13 +17,17 @@ public class Factura {
   private Cliente cliente;
 
   public Factura () {
-
   }
+
   public Factura(Integer id) {
     this.idFactura = id;
   }
   public Factura(Integer idFactura, Cliente cliente) {
     this.idFactura = idFactura;
+  }
+
+
+  public Factura(Cliente cliente) {
     this.cliente = cliente;
   }
 }
