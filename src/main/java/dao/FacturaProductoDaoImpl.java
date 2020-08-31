@@ -26,7 +26,7 @@ public class FacturaProductoDaoImpl extends Dao<FacturaProducto> {
 
   @Override
   public void saveAll(List<FacturaProducto> facturaProductos) {
-
+    execute(facturaProductos);
   }
 
   private void executeInsideTransaction(Consumer<EntityManager> action) {

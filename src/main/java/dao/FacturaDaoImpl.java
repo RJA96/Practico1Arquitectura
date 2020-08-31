@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Cliente;
 import entity.Factura;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,13 @@ import java.util.function.Consumer;
 public class FacturaDaoImpl extends Dao<Factura>{
 
   public FacturaDaoImpl() {
+  }
+
+
+  public Factura getById(Integer id) {
+    Query query = entityManager.createQuery("select e from Factura e where idFactura = :id");
+    query.setParameter("id",id);
+    return (Factura) query.getSingleResult();
   }
 
   @Override
@@ -26,7 +34,7 @@ public class FacturaDaoImpl extends Dao<Factura>{
 
   @Override
   public void saveAll(List<Factura> facturas) {
-
+    execute(facturas);
   }
 
   private void executeInsideTransaction(Consumer<EntityManager> action) {

@@ -12,6 +12,18 @@ public class ClienteDaoImpl extends Dao<Cliente> {
 
   public ClienteDaoImpl() {}
 
+
+  public Cliente getById(Integer id) {
+    Query query = entityManager.createQuery("SELECT e from Cliente e where idCliente = :id");
+    query.setParameter("id",id);
+    if (query.getResultList().size()>0) {
+      return (Cliente) query.getResultList().get(0);
+    } else {
+      return null;
+    }
+
+  }
+
   @Override
   public List<Cliente> getAll() {
     Query query = entityManager.createQuery("SELECT e FROM Cliente e");
@@ -25,7 +37,7 @@ public class ClienteDaoImpl extends Dao<Cliente> {
 
   @Override
   public void saveAll(List<Cliente> clientes) {
-
+    execute(clientes);
   }
 
   private void executeInsideTransaction(Consumer<EntityManager> action) {
