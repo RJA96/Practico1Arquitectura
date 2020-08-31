@@ -11,4 +11,5 @@ public class ConstantFields {
     //factura
     public final static String ID_FACTURA = "idFactura";
     public final static String CANTIDAD = "cantidad";
+
 }

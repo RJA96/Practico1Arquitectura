@@ -1,9 +1,5 @@
 package utils;
 
-import dao.ClienteDaoImpl;
-import dao.FacturaDaoImpl;
-import dao.FacturaProductoDaoImpl;
-import dao.ProductoDaoImpl;
 import entity.Cliente;
 import entity.Factura;
 import entity.FacturaProducto;
@@ -16,18 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-import static java.util.stream.Collectors.groupingBy;
-
 public class CsvUtils {
-
-  private static final FacturaProductoDaoImpl facturaProodcutoDao = new FacturaProductoDaoImpl();
-  private static final ProductoDaoImpl productoDao = new ProductoDaoImpl();
-  private static final ClienteDaoImpl clienteDao = new ClienteDaoImpl();
-  private static final FacturaDaoImpl facturaDao = new FacturaDaoImpl();
-
   public CsvUtils(){
 
   }
@@ -40,7 +27,7 @@ public class CsvUtils {
       Float valor = Float.parseFloat(row.get(ConstantFields.VALOR));
       productos.add(new Producto(id, nombre, valor));
     }
-    productoDao.saveAll(productos);
+    DaoUtils.productoDao.saveAll(productos);
   }
 
   public void uploadClientes(FileReader fileReader) throws IOException {
@@ -52,7 +39,7 @@ public class CsvUtils {
       String email = row.get(ConstantFields.EMAIL);
       clientes.add(new Cliente(idCliente, nombre, email));
     }
-    clienteDao.saveAll(clientes);
+    DaoUtils.clienteDao.saveAll(clientes);
   }
 
   public void uploadFactura (FileReader fileReader) throws IOException {
@@ -63,15 +50,15 @@ public class CsvUtils {
       Integer idFactura = Integer.parseInt(row.get(ConstantFields.ID_FACTURA));
       Integer idCliente = Integer.parseInt(row.get(ConstantFields.ID_CLIENTE));
       Factura factura = new Factura(idFactura);
-      if (Objects.nonNull(clienteDao.getById(idCliente))) {
-        factura.setCliente(clienteDao.getById(idCliente));
+      if (Objects.nonNull(DaoUtils.clienteDao.getById(idCliente))) {
+        factura.setCliente(DaoUtils.clienteDao.getById(idCliente));
       }
       else {
         factura.setCliente(new Cliente(idCliente));
       }
       facturas.add(factura);
     }
-    facturaDao.saveAll(facturas);
+    DaoUtils.facturaDao.saveAll(facturas);
   }
 
   public void uploadFacturaProducto (FileReader fileReader) throws IOException {
@@ -84,43 +71,8 @@ public class CsvUtils {
       FacturaProducto facturaProducto = new FacturaProducto(idFactura,idProducto,cantidad);
       facturaProductos.add(facturaProducto);
     }
-    facturaProodcutoDao.saveAll(facturaProductos);
+    DaoUtils.facturaProodcutoDao.saveAll(facturaProductos);
   }
 
-  /**
-   * Busca el producto que mas recaudo
-   * @return el producto que mas recaudo o null
-   */
-  public Producto getMaxRecaudacion() {
-    List<FacturaProducto> facturaProductos = facturaProodcutoDao.getAll();
-    List<Producto> productos = productoDao.getAll();
 
-    Producto productoQueMasRecaudo = null;
-    float maximaRecaudacion = 0f;
-    for(Producto producto: productos) {
-      Integer cantidadProductos = getCantidadProductosCompradosByProducto(facturaProductos, producto); // Dame el total y sino devolve 0
-      float result = producto.getValor() * cantidadProductos;
-      if(result > maximaRecaudacion) {
-        maximaRecaudacion = result;
-        productoQueMasRecaudo = producto;
-      }
-    }
-    return productoQueMasRecaudo;
-  }
-
-  public List<Cliente> getClientesByFacturoMas() {
-    List<FacturaProducto> facturaProductos = facturaProodcutoDao.getAll();
-    List<Producto> productos = productoDao.getAll();
-    List<Cliente> clientes  = clienteDao.getAll();
-    List<Factura> facturas = facturaDao.getAll();
-
-  }
-
-  private Integer getCantidadProductosCompradosByProducto(List<FacturaProducto> facturaProductos, Producto producto) {
-    return facturaProductos.stream()
-            .filter(fp -> fp.getProductoId() == producto.getIdProducto()) // Filtra por id de producto = id de facturaProducto
-            .map(facturaProducto -> facturaProducto.getCantidad()) // List<Integer> representando la cantidad
-            .reduce(Integer::sum) // x -> total + valorDentroDelArray
-            .orElse(0);
-  }
 }
