@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Factura;
 import entity.Producto;
 
 import javax.persistence.Query;
@@ -10,9 +11,17 @@ public class ProductoDaoImpl extends Dao<Producto> {
   public ProductoDaoImpl() {
   }
 
+
+  public Factura getById(Integer id) {
+    Query query = entityManager.createQuery("select e from Factura e where idFactura = :id");
+    query.setParameter("id",id);
+    return (Factura) query.getSingleResult();
+  }
+
   @Override
   public List<Producto> getAll() {
-    Query query = entityManager.createQuery("SELECT e FROM Producto e");
+    String queryS = "SELECT e FROM Producto e";
+    Query query = entityManager.createQuery(queryS);
     return query.getResultList();
   }
 

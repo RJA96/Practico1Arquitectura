@@ -1,6 +1,7 @@
 package entity;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -9,16 +10,20 @@ public class Factura {
 
   @Getter
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer idFactura;
 
+  @Setter
   @ManyToOne
   private Cliente cliente;
 
-  public Factura() {
-  }
+  public Factura () {
 
-  public Factura(Cliente cliente) {
+  }
+  public Factura(Integer id) {
+    this.idFactura = id;
+  }
+  public Factura(Integer idFactura, Cliente cliente) {
+    this.idFactura = idFactura;
     this.cliente = cliente;
   }
 }
