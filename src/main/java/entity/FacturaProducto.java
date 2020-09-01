@@ -1,33 +1,36 @@
 package entity;
 
-import lombok.Getter;
-
 import javax.persistence.Entity;
-import javax.persistence.EmbeddedId;
 
 @Entity
 public class FacturaProducto {
+	private Integer idFactura;
+	private Integer idProducto;
+	private Integer cantidad;
 
-  @EmbeddedId
-  private FacturaProductoPK id;
+	public FacturaProducto(Integer idFactura, Integer idProducto, Integer cantidad) {
+		this.idFactura = idFactura;
+		this.idProducto = idProducto;
+		this.cantidad = cantidad;
+	}
 
-  @Getter
-  private Integer cantidad;
+	public Integer getIdFactura() {
+		return idFactura;
+	}
 
+	public Integer getIdProducto() {
+		return idProducto;
+	}
 
-  public FacturaProducto(Integer facturaId, Integer productoId, Integer cantidad) {
-    this.id = new FacturaProductoPK(facturaId, productoId);
-    this.cantidad = cantidad;
-  }
+	public Integer getCantidad() {
+		return cantidad;
+	}
 
-  public FacturaProducto() {
-  }
+	@Override
+	public String toString() {
+		return "FacturaProducto [idFactura=" + idFactura + ", idProducto=" + idProducto + ", cantidad=" + cantidad
+				+ "]";
+	}
 
-  public Integer getFacturaId() {
-    return id.getIdFactura();
-  }
-
-  public Integer getProductoId() {
-    return id.getIdProducto();
-  }
+	
 }

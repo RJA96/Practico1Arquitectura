@@ -8,26 +8,31 @@ import javax.persistence.*;
 @Entity
 public class Factura {
 
-  @Getter
-  @Id
-  private Integer idFactura;
+	private Integer idFactura;
 
-  @Setter
-  @ManyToOne
-  private Cliente cliente;
+	@Setter
+	@ManyToOne
+	private Integer idCliente;
 
-  public Factura () {
-  }
+	public Factura(Integer idFactura, Integer cliente) {
+		this.idFactura = idFactura;
+		this.idCliente = cliente;
+	}
 
-  public Factura(Integer id) {
-    this.idFactura = id;
-  }
-  public Factura(Integer idFactura, Cliente cliente) {
-    this.idFactura = idFactura;
-  }
+	public Integer getIdFactura() {
+		return idFactura;
+	}
 
+	public void setIdFactura(Integer idFactura) {
+		this.idFactura = idFactura;
+	}
 
-  public Factura(Cliente cliente) {
-    this.cliente = cliente;
-  }
+	public void setCliente(Integer cliente) {
+		this.idCliente = cliente;
+	}
+
+	public Integer getidCliente() {
+		return this.idCliente;
+	}
+
 }

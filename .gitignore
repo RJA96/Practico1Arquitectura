@@ -85,3 +85,6 @@ buildNumber.properties
 /.idea/
 
 *.iml
+/.settings/
+.project
+.classpath
