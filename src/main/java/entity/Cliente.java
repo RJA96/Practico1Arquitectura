@@ -11,28 +11,41 @@ import java.util.List;
 @Entity
 public class Cliente {
 
-  @Getter
-  @Id
-  private Integer idCliente;
+	@Getter
+	@Id
+	private Integer idCliente;
 
-  @Getter
-  @Setter
-  private String nombre;
+	@Getter
+	@Setter
+	private String nombre;
 
-  @Getter
-  @Setter
-  private String email;
+	@Getter
+	@Setter
+	private String email;
 
-  public Cliente() {
-  }
+	public Cliente() {
+	}
 
-  public Cliente(Integer id) {
-    this.idCliente = id;
-  }
+	public Cliente(Integer id) {
+		this.idCliente = id;
+	}
 
-  public Cliente(Integer idCliente, String nombre, String email) {
-    this.idCliente = idCliente;
-    this.nombre = nombre;
-    this.email = email;
-  }
+	public Cliente(Integer idCliente, String nombre, String email) {
+		this.idCliente = idCliente;
+		this.nombre = nombre;
+		this.email = email;
+	}
+
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
 }

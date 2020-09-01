@@ -1,53 +1,74 @@
 package dao;
 
-import entity.Cliente;
 import entity.Factura;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class FacturaDaoImpl extends Dao<Factura>{
-
-  public FacturaDaoImpl() {
-  }
+public class FacturaDaoImpl implements Dao<Factura> {
+	Conexion c = new Conexion();
 
 
-  public Factura getById(Integer id) {
-    Query query = entityManager.createQuery("select e from Factura e where idFactura = :id");
-    query.setParameter("id",id);
-    return (Factura) query.getSingleResult();
-  }
+	public FacturaDaoImpl() {
+	}
 
-  @Override
-  public List<Factura> getAll() {
-    Query query = entityManager.createQuery("SELECT e FROM Factura e");
-    return query.getResultList();
-  }
+	public Factura getById(Integer id) {
+		try {
+			String select = "select * from cliente where idCliente= ?";
+			PreparedStatement ps = c.getConnection().prepareStatement(select);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				Factura f = new Factura(rs.getInt(1), rs.getInt(2));
+				return f;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 
-  @Override
-  public void save(Factura factura) {
-    executeInsideTransaction(entityManager -> entityManager.persist(factura));
-  }
+	}
 
-  @Override
-  public void saveAll(List<Factura> facturas) {
-    execute(facturas);
-  }
+	@Override
+	public List<Factura> getAll() {
+		List<Factura> aDevolver = new ArrayList<>();
+		try {
+			String select = "select * from factura";
+			PreparedStatement ps =c.getConnection().prepareStatement(select);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Factura f = new Factura(rs.getInt(1), rs.getInt(2));
+				aDevolver.add(f);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return aDevolver;
+	}
 
-  private void executeInsideTransaction(Consumer<EntityManager> action) {
-    final EntityTransaction entityTransaction = entityManager.getTransaction();
-    try {
-      entityTransaction.begin();
-      action.accept(entityManager);
-      entityTransaction.commit();
-    }
-    catch (RuntimeException e) {
-      entityTransaction.rollback();
-      throw e;
-    }
-  }
+	@Override
+	public void addData(Factura t) {
+		try {
+			c.conectar();
+			String insert = "insert into factura (idFactura, idCliente) values (?,?)";
+			PreparedStatement ps = c.getConnection().prepareStatement(insert);
+			ps.setInt(1, t.getIdFactura());
+			ps.setInt(2, t.getidCliente());
+			ps.executeUpdate();
+			c.getConnection().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+	}
+
+	public void saveAll(List<Factura> tlist) {
+		for (Factura F : tlist) {
+			this.addData(F);
+		}
+	}
 }

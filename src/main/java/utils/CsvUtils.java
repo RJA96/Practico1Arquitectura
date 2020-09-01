@@ -59,13 +59,7 @@ public class CsvUtils {
 
       Integer idFactura = Integer.parseInt(row.get(ConstantFields.ID_FACTURA));
       Integer idCliente = Integer.parseInt(row.get(ConstantFields.ID_CLIENTE));
-      Factura factura = new Factura(idFactura);
-      if (Objects.nonNull(clienteDao.getById(idCliente))) {
-        factura.setCliente(clienteDao.getById(idCliente));
-      }
-      else {
-        factura.setCliente(new Cliente(idCliente));
-      }
+      Factura factura = new Factura(idFactura, idCliente);
       facturas.add(factura);
     }
     facturaDao.saveAll(facturas);
@@ -96,7 +90,7 @@ public class CsvUtils {
     float maximaRecaudacion = 0f;
     for(Producto producto: productos) {
       Integer cantidadProductos = facturaProductos.stream()
-              .filter(fp -> fp.getProductoId() == producto.getIdProducto())
+              .filter(fp -> fp.getIdProducto() == producto.getIdProducto())
               .map(facturaProducto -> facturaProducto.getCantidad())
               .reduce(Integer::sum)
               .orElse(0);

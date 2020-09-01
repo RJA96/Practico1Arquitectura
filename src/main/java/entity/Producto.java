@@ -9,18 +9,31 @@ import javax.persistence.Id;
 @Getter
 public class Producto {
 
-  @Id
-  private Integer idProducto;
+	@Id
+	private Integer idProducto;
 
-  private String nombre;
+	private String nombre;
 
-  private Float valor;
+	private Float valor;
 
-  public Producto() {}
+	public Producto() {
+	}
 
-  public Producto(Integer idProducto, String nombre, Float valor) {
-    this.idProducto = idProducto;
-    this.nombre = nombre;
-    this.valor = valor;
-  }
+	public Producto(Integer idProducto, String nombre, Float valor) {
+		this.idProducto = idProducto;
+		this.nombre = nombre;
+		this.valor = valor;
+	}
+
+	public Integer getIdProducto() {
+		return idProducto;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public Float getValor() {
+		return valor;
+	}
 }

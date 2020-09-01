@@ -1,37 +1,75 @@
 package dao;
 
-import entity.Factura;
+import entity.Cliente;
 import entity.Producto;
 
-import javax.persistence.Query;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class ProductoDaoImpl extends Dao<Producto> {
+public class ProductoDaoImpl implements Dao<Producto> {
+	Conexion c = new Conexion();
 
-  public ProductoDaoImpl() {
-  }
+	public ProductoDaoImpl() {
+	}
 
+	public Producto getById(Integer idProducto) {
+		try {
+			String select = "select * from Producto where idProducto= ?";
+			PreparedStatement ps = c.getConnection().prepareStatement(select);
+			ps.setInt(1, idProducto);
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				Producto f = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3));
+				return f;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 
-  public Factura getById(Integer id) {
-    Query query = entityManager.createQuery("select e from Factura e where idFactura = :id");
-    query.setParameter("id",id);
-    return (Factura) query.getSingleResult();
-  }
+	}
 
-  @Override
-  public List<Producto> getAll() {
-    String queryS = "SELECT e FROM Producto e";
-    Query query = entityManager.createQuery(queryS);
-    return query.getResultList();
-  }
+	@Override
+	public List<Producto> getAll() {
+		List<Producto> aDevolver = new ArrayList<>();
+		try {
+			String select = "select * from facturaproducto";
+			PreparedStatement ps = c.getConnection().prepareStatement(select);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Producto f = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3));
+				aDevolver.add(f);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return aDevolver;
+	}
 
-  @Override
-  public void save(Producto producto) {
-    execute(producto);
-  }
+	@Override
+	public void addData(Producto t) {
+		try {
+			c.conectar();
+			String insert = "insert into producto (idProducto, nombre, valor) values (?,?,?)";
+			PreparedStatement ps = c.getConnection().prepareStatement(insert);
+			ps.setInt(1, t.getIdProducto());
+			ps.setString(2, t.getNombre());
+			ps.setFloat(3, t.getValor());
+			ps.executeUpdate();
+			c.getConnection().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-  @Override
-  public void saveAll(List<Producto> productos) {
-    execute(productos);
-  }
+	}
+
+	public void saveAll(List<Producto> tlist) {
+		for (Producto F : tlist) {
+			this.addData(F);
+		}
+	}
 }
