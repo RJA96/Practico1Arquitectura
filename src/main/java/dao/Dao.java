@@ -2,13 +2,11 @@ package dao;
 
 import config.JdbcConnection;
 
-import entity.Factura;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import lombok.Setter;
 
 /** Data Access Object generico */
 public abstract class Dao<T> {

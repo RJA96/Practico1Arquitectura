@@ -11,6 +11,6 @@ public class ClienteFacturado implements Comparable<ClienteFacturado> {
 
   @Override
   public int compareTo(ClienteFacturado o) {
-    return Double.compare(this.totalGastado, totalGastado);
+    return Double.compare(this.totalGastado, o.totalGastado);
   }
 }

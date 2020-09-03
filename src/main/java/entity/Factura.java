@@ -3,8 +3,6 @@ package entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-
 /** Entidad de la base de datos Factura */
 public class Factura {
 

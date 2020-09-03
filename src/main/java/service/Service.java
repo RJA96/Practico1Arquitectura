@@ -85,7 +85,7 @@ public class Service {
     } catch (SQLException throwable) {
       throwable.printStackTrace();
     }
-    Collections.sort(clienteResponse);
+    Collections.sort(clienteResponse,Collections.reverseOrder());
     return clienteResponse;
   }
 }

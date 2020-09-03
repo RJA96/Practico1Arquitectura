@@ -2,9 +2,6 @@ package entity;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.EmbeddedId;
-
 /** Entidad de la base de datos FacturaProducto */
 public class FacturaProducto {
 

@@ -2,9 +2,6 @@ package entity;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /** Entidad de la tabla Producto */
 @Getter
 public class Producto {

@@ -3,8 +3,6 @@ package entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /** Primary Key de la tabla FacturaProducto */
