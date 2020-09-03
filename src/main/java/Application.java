@@ -1,5 +1,8 @@
 import dao.ClienteDaoImpl;
 import entity.Cliente;
+import java.util.Collections;
+import java.util.List;
+import service.ClienteFacturado;
 import service.Service;
 import utils.CsvUtils;
 
@@ -12,6 +15,7 @@ public class Application {
 
   /**
    * No muestra logs al haber utilizado execute() para las operaciones SQL.
+   *
    * @param args
    * @throws IOException
    */
@@ -40,7 +44,9 @@ public class Application {
     System.out.println();
 
     System.out.println("Ej 4: lista de clientes ordanada por por valores de facturacion");
-    System.out.println(service.GetMostBilledCustomers());
-
+    List<ClienteFacturado> clienteFacturados = service.GetMostBilledCustomers();
+    for (ClienteFacturado c : clienteFacturados) {
+      System.out.println(c);
+    }
   }
 }

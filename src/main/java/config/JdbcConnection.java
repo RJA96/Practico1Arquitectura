@@ -1,26 +1,23 @@
 package config;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
 import lombok.Setter;
 
+/** Patron singleton para la conexion a la base de datos. */
 public class JdbcConnection {
 
   // JDBC driver name and database URL
   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  @Setter
-  String DB_URL = "jdbc:mysql://localhost:3306/";
+  @Setter String DB_URL = "jdbc:mysql://localhost:3306/";
   //  Database credentials
   static final String USER = "root";
   static final String PASS = "password";
   private static JdbcConnection jdbcConnection;
 
-  private JdbcConnection() {
-  }
+  private JdbcConnection() {}
 
   public static JdbcConnection getInstance() {
     if (Objects.isNull(jdbcConnection)) {
@@ -28,7 +25,6 @@ public class JdbcConnection {
     } else {
       return jdbcConnection;
     }
-
   }
 
   public Connection getConnection() {
@@ -47,5 +43,4 @@ public class JdbcConnection {
       System.out.println(sqlException.toString());
     }
   }
-
 }

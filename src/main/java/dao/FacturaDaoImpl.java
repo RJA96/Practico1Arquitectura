@@ -15,9 +15,7 @@ import java.util.Objects;
 
 public class FacturaDaoImpl extends Dao<Factura> {
 
-  public FacturaDaoImpl() {
-  }
-
+  public FacturaDaoImpl() {}
 
   public Factura getById(Integer id) {
     try {
@@ -50,8 +48,8 @@ public class FacturaDaoImpl extends Dao<Factura> {
       ResultSet resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
         ClienteDaoImpl clienteDao = new ClienteDaoImpl();
-        Cliente cliente = new Cliente(
-            clienteDao.getById(resultSet.getInt(ConstantFields.ID_CLIENTE)));
+        Cliente cliente =
+            new Cliente(clienteDao.getById(resultSet.getInt(ConstantFields.ID_CLIENTE)));
         Factura factura = new Factura(resultSet.getInt(ConstantFields.ID_FACTURA), cliente);
         facturas.add(factura);
       }
@@ -89,8 +87,8 @@ public class FacturaDaoImpl extends Dao<Factura> {
     try {
       while (resultSet.next()) {
         ClienteDaoImpl clienteDao = new ClienteDaoImpl();
-        Cliente cliente = new Cliente(
-            clienteDao.getById(resultSet.getInt(ConstantFields.ID_CLIENTE)));
+        Cliente cliente =
+            new Cliente(clienteDao.getById(resultSet.getInt(ConstantFields.ID_CLIENTE)));
         Factura factura = new Factura(resultSet.getInt(ConstantFields.ID_FACTURA), cliente);
         facturas.add(factura);
       }
@@ -104,7 +102,8 @@ public class FacturaDaoImpl extends Dao<Factura> {
   public void createTable() {
     try {
       Connection connection = jdbcConnection.getConnection();
-      String sql = "CREATE TABLE if NOT EXISTS Factura(idFactura INT, idCliente INT , PRIMARY KEY (idFactura))";
+      String sql =
+          "CREATE TABLE if NOT EXISTS Factura(idFactura INT, idCliente INT , PRIMARY KEY (idFactura))";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.execute();
       jdbcConnection.closeConnection(connection);
@@ -125,5 +124,4 @@ public class FacturaDaoImpl extends Dao<Factura> {
       throwable.printStackTrace();
     }
   }
-
 }

@@ -5,31 +5,24 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.List;
 
-@Entity
+/** Entidad de la base de datos Cliente */
 public class Cliente {
 
-  @Getter
-  @Id
-  private Integer idCliente;
+  @Getter private Integer idCliente;
 
-  @Getter
-  @Setter
-  private String nombre;
+  @Getter @Setter private String nombre;
 
-  @Getter
-  @Setter
-  private String email;
+  @Getter @Setter private String email;
 
-  public Cliente() {
-  }
-  public Cliente (Cliente cliente) {
+  public Cliente() {}
+
+  public Cliente(Cliente cliente) {
     this.idCliente = cliente.getIdCliente();
     this.nombre = cliente.getNombre();
     this.email = cliente.getEmail();
   }
+
   public Cliente(Integer id) {
     this.idCliente = id;
   }
@@ -42,7 +35,14 @@ public class Cliente {
 
   @Override
   public String toString() {
-    return "Cliente{" + "idCliente=" + idCliente + ", nombre='" + nombre + '\'' + ", email='"
-        + email + '\'' + '}';
+    return "{idCliente="
+        + idCliente
+        + ", nombre='"
+        + nombre
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + '}';
   }
 }

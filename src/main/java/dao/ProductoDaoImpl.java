@@ -1,7 +1,5 @@
 package dao;
 
-import entity.Cliente;
-import entity.Factura;
 import entity.Producto;
 
 import java.sql.Connection;
@@ -10,16 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import javax.persistence.Query;
 import java.sql.ResultSet;
 import java.util.List;
 import utils.ConstantFields;
 
 public class ProductoDaoImpl extends Dao<Producto> {
 
-  public ProductoDaoImpl() {
-  }
-
+  public ProductoDaoImpl() {}
 
   public Producto getById(Integer id) {
     try {
@@ -80,11 +75,16 @@ public class ProductoDaoImpl extends Dao<Producto> {
     }
   }
 
-  @Override List<Producto> mapResult(ResultSet resultSet) {
+  @Override
+  List<Producto> mapResult(ResultSet resultSet) {
     List<Producto> productos = new ArrayList<>();
     try {
       while (resultSet.next()) {
-        Producto producto = new Producto(resultSet.getInt(ConstantFields.ID_PRODUCTO), resultSet.getString(ConstantFields.NOMBRE),resultSet.getFloat(ConstantFields.VALOR));
+        Producto producto =
+            new Producto(
+                resultSet.getInt(ConstantFields.ID_PRODUCTO),
+                resultSet.getString(ConstantFields.NOMBRE),
+                resultSet.getFloat(ConstantFields.VALOR));
         productos.add(producto);
       }
     } catch (SQLException throwable) {
@@ -97,7 +97,8 @@ public class ProductoDaoImpl extends Dao<Producto> {
   public void createTable() {
     try {
       Connection connection = jdbcConnection.getConnection();
-      String sql = "CREATE TABLE if NOT EXISTS Producto(idProducto INT, nombre VARCHAR (500), valor FLOAT , PRIMARY KEY (idProducto))";
+      String sql =
+          "CREATE TABLE if NOT EXISTS Producto(idProducto INT, nombre VARCHAR (500), valor FLOAT , PRIMARY KEY (idProducto))";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.execute();
       jdbcConnection.closeConnection(connection);

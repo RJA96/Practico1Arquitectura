@@ -14,8 +14,7 @@ import java.util.Objects;
 
 public class ClienteDaoImpl extends Dao<Cliente> {
 
-  public ClienteDaoImpl() {
-  }
+  public ClienteDaoImpl() {}
 
   public Cliente getById(Integer id) {
     try {
@@ -81,8 +80,11 @@ public class ClienteDaoImpl extends Dao<Cliente> {
     List<Cliente> clientes = new ArrayList<>();
     try {
       while (resultSet.next()) {
-        Cliente cliente = new Cliente(resultSet.getInt(ConstantFields.ID_CLIENTE),
-            resultSet.getString(ConstantFields.NOMBRE), resultSet.getString(ConstantFields.EMAIL));
+        Cliente cliente =
+            new Cliente(
+                resultSet.getInt(ConstantFields.ID_CLIENTE),
+                resultSet.getString(ConstantFields.NOMBRE),
+                resultSet.getString(ConstantFields.EMAIL));
         clientes.add(cliente);
       }
     } catch (SQLException throwable) {
@@ -95,7 +97,8 @@ public class ClienteDaoImpl extends Dao<Cliente> {
   public void createTable() {
     try {
       Connection connection = jdbcConnection.getConnection();
-      String sql = "CREATE TABLE if NOT EXISTS Cliente(idCliente INT, nombre VARCHAR (500), email VARCHAR (500), PRIMARY KEY (idCliente))";
+      String sql =
+          "CREATE TABLE if NOT EXISTS Cliente(idCliente INT, nombre VARCHAR (500), email VARCHAR (500), PRIMARY KEY (idCliente))";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.execute();
       jdbcConnection.closeConnection(connection);
@@ -116,6 +119,4 @@ public class ClienteDaoImpl extends Dao<Cliente> {
       throwable.printStackTrace();
     }
   }
-
-
 }

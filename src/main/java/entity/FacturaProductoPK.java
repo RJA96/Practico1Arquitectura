@@ -7,18 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-
-/**
- * ComposedPrimary of FacturaProducto
- */
+/** Primary Key de la tabla FacturaProducto */
 @EqualsAndHashCode
-@Embeddable
 @Getter
 public class FacturaProductoPK implements Serializable {
 
-  @Column(name = "id_factura")
   private Integer idFactura;
-  @Column(name = "id_producto")
+
   private Integer idProducto;
 
   public FacturaProductoPK(Integer idFactura, Integer idProducto) {
@@ -26,6 +21,5 @@ public class FacturaProductoPK implements Serializable {
     this.idProducto = idProducto;
   }
 
-  public FacturaProductoPK() {
-  }
+  public FacturaProductoPK() {}
 }

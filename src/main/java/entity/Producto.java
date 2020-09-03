@@ -5,11 +5,10 @@ import lombok.Getter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+/** Entidad de la tabla Producto */
 @Getter
 public class Producto {
 
-  @Id
   private Integer idProducto;
 
   private String nombre;
@@ -26,7 +25,14 @@ public class Producto {
 
   @Override
   public String toString() {
-    return "Producto{" + "idProducto=" + idProducto + ", nombre='" + nombre + '\'' + ", valor="
-        + valor + '}';
+    return "Producto{"
+        + "idProducto="
+        + idProducto
+        + ", nombre='"
+        + nombre
+        + '\''
+        + ", valor="
+        + valor
+        + '}';
   }
 }

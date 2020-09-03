@@ -13,8 +13,7 @@ import utils.ConstantFields;
 
 public class FacturaProductoDaoImpl extends Dao<FacturaProducto> {
 
-  public FacturaProductoDaoImpl() {
-  }
+  public FacturaProductoDaoImpl() {}
 
   @Override
   public List<FacturaProducto> getAll() {
@@ -42,7 +41,8 @@ public class FacturaProductoDaoImpl extends Dao<FacturaProducto> {
     try {
       Connection connection = jdbcConnection.getConnection();
       for (FacturaProducto row : facturaProductos) {
-        String sql = "INSERT INTO FacturaProducto (idFactura, idProducto, cantidad) VALUES (?, ?, ?)";
+        String sql =
+            "INSERT INTO FacturaProducto (idFactura, idProducto, cantidad) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, row.getFacturaId());
         preparedStatement.setInt(2, row.getProductoId());
@@ -60,8 +60,11 @@ public class FacturaProductoDaoImpl extends Dao<FacturaProducto> {
     List<FacturaProducto> facturaProductos = new ArrayList<>();
     try {
       while (resultSet.next()) {
-        FacturaProducto facturaProducto = new FacturaProducto(resultSet.getInt(ConstantFields.ID_FACTURA),
-            resultSet.getInt(ConstantFields.ID_PRODUCTO), resultSet.getInt(ConstantFields.CANTIDAD));
+        FacturaProducto facturaProducto =
+            new FacturaProducto(
+                resultSet.getInt(ConstantFields.ID_FACTURA),
+                resultSet.getInt(ConstantFields.ID_PRODUCTO),
+                resultSet.getInt(ConstantFields.CANTIDAD));
         facturaProductos.add(facturaProducto);
       }
     } catch (SQLException throwable) {
@@ -74,7 +77,8 @@ public class FacturaProductoDaoImpl extends Dao<FacturaProducto> {
   public void createTable() {
     try {
       Connection connection = jdbcConnection.getConnection();
-      String sql = "create table if not exists FacturaProducto(idFactura int, idProducto int, cantidad int, primary key(idFactura, idProducto))";
+      String sql =
+          "create table if not exists FacturaProducto(idFactura int, idProducto int, cantidad int, primary key(idFactura, idProducto))";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.execute();
       jdbcConnection.closeConnection(connection);
@@ -95,5 +99,4 @@ public class FacturaProductoDaoImpl extends Dao<FacturaProducto> {
       throwable.printStackTrace();
     }
   }
-
 }
